@@ -10,14 +10,14 @@ setup(
   packages = find_packages(),
   version = VERSION,
   description = '''
-  A set of encoders which provide a simple string/byte based interface.
+  A set of dictionary abstractions on top of various data stores. 
   ''',
   long_description=open('README.md').read(),
   long_description_content_type='text/markdown',
   author = 'Marco Montagna',
   author_email = 'marcojoemontagna@gmail.com',
-  url = 'https://github.com/mmontagna/generic-dictionaries',
-  keywords = ['dictionary', 'dicts'],
+  url = 'https://github.com/mmontagna/extra-dict',
+  keywords = ['dictionary', 'dicts', 's3', 'redis'],
   classifiers=(
       'Development Status :: 4 - Beta',
       'Intended Audience :: Developers',
@@ -34,8 +34,12 @@ setup(
   python_requires=">=2.7",
   license=open(os.path.join(dir_path, 'LICENSE')).read(),
   install_requires=[
-    "generic-encoders>=0.3.2"
+    "generic-encoders>=0.3.2",
+    "recursive-itertools>=0.1.0"
   ],
+  extras_require={
+      's3':  ["boto3>=1.7.40"]
+  },
   entry_points = {
   },
 )
