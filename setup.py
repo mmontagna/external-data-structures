@@ -6,18 +6,18 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 VERSION = open(os.path.join(dir_path, 'VERSION')).read()
 
 setup(
-  name = 'extra-dict',
+  name = 'external-data-structures',
   packages = find_packages(),
   version = VERSION,
   description = '''
-  A set of dictionary abstractions on top of various data stores. 
+  A set of data structure abstractions for various external data stores.
   ''',
   long_description=open('README.md').read(),
   long_description_content_type='text/markdown',
   author = 'Marco Montagna',
   author_email = 'marcojoemontagna@gmail.com',
   url = 'https://github.com/mmontagna/extra-dict',
-  keywords = ['dictionary', 'dicts', 's3', 'redis'],
+  keywords = ['dictionary', 'dicts', 's3', 'redis', 'sets'],
   classifiers=(
       'Development Status :: 4 - Beta',
       'Intended Audience :: Developers',
