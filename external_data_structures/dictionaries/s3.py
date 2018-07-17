@@ -70,7 +70,9 @@ class S3Dict(ProtoTypeDict):
 
   @convert_s3_http_errors
   def __delitem__(self, key):
-    self.get_object_handle(key).load()
+    obj = self.get_object_handle(key)
+    obj.load()
+    obj.delete()
 
   def put_object(self, key, value, ContentType=None, ContentEncoding=None):
     value = self.serializer.encode(value)
