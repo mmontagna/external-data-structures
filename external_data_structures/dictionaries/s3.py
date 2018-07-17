@@ -3,9 +3,9 @@ from functools import wraps
 import boto3
 import botocore
 
-from extra_dict.dictionaries.prototype import ProtoTypeDict
+from .prototype import ProtoTypeDict
 from recursive_itertools import rfilter
-from generic_encoders import ComposedEncoder, MsgPackEncoder, Lz4Encoder, Base64Encoder, TextEncoder
+from generic_encoders import ComposedEncoder, JsonEncoder, GzipEncoder, TextEncoder
 
 
 def convert_s3_http_errors(func):
@@ -21,8 +21,8 @@ def convert_s3_http_errors(func):
     return convert_s3_http_errors_h
 
 
-default_key_serializer = encoder = TextEncoder()
-default_object_serializer = encoder = ComposedEncoder(MsgPackEncoder(), Lz4Encoder())
+default_key_serializer = TextEncoder().inverted
+default_object_serializer = ComposedEncoder(JsonEncoder(), TextEncoder(), GzipEncoder())
 
 
 class S3Dict(ProtoTypeDict):
