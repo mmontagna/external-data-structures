@@ -1,0 +1,68 @@
+version: 2
+jobs:
+  test_py2:
+    docker:
+      - image: circleci/python:2.7.15
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "VERSION" }}
+          - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python -m virtualenv venv2
+            venv2/bin/python setup.py install
+
+      - save_cache:
+          paths:
+            - ./venv2
+          key: v1-dependencies-{{ checksum "VERSION" }}
+
+      - run:
+          name: run tests
+          command: |
+            venv2/bin/python -m unittest discover ./test
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
+
+  test_py3:
+    docker:
+      - image: circleci/python:3.6.3
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "VERSION" }}
+          - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python -m venv venv
+            venv/bin/python setup.py install
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "VERSION" }}
+
+      - run:
+          name: run tests
+          command: |
+            venv/bin/python -m unittest discover ./test
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test_py2
+      - test_py3
