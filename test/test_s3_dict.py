@@ -37,6 +37,18 @@ class TestS3Dict(unittest.TestCase):
     self.bucket['msg'] = {"a": None, "b": 2, "c" : "c"}
     self.assertEqual({"a": None, "b": 2, "c" : "c"}, self.bucket['msg'])
 
+  @mock_s3
+  def test_s3_dict_keys(self):
+    self.bucket = S3Dict('test-4e1243')
+    self.bucket.s3.create_bucket(Bucket='test-4e1243')
+    self.assertEqual([], self.bucket.keys())
+    self.bucket['msg'] = "a"
+    self.assertEqual(['msg'], self.bucket.keys())
+    self.bucket['msg2'] = "b"
+    self.assertEqual(['msg', 'msg2'], self.bucket.keys())
+    del self.bucket['msg']
+    self.assertEqual(['msg2'], self.bucket.keys())
+
 
 if __name__ == '__main__':
     unittest.main()
