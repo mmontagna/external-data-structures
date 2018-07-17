@@ -49,6 +49,14 @@ class TestS3Dict(unittest.TestCase):
     del self.bucket['msg']
     self.assertEqual(['msg2'], self.bucket.keys())
 
+  @mock_s3
+  def test_s3_dict_contains(self):
+    self.bucket = S3Dict('test-4e1243')
+    self.bucket.s3.create_bucket(Bucket='test-4e1243')
+    self.assertFalse("something" in self.bucket)
+    self.bucket["something"] = 123
+    self.assertTrue("something" in self.bucket)
+
 
 if __name__ == '__main__':
     unittest.main()

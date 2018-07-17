@@ -15,7 +15,7 @@ def convert_s3_http_errors(func):
         return func(*args, **kwargs)
       except botocore.exceptions.ClientError as e:
         if e.response.get('ResponseMetadata', {}).get('HTTPStatusCode', None) == 404:
-          raise KeyError(key)
+          raise KeyError(args[1])
         else:
           raise e
     return convert_s3_http_errors_h
@@ -60,10 +60,9 @@ class S3Dict(ProtoTypeDict):
   def __setitem__(self, key, value):
     return self.put_object(key, value)
 
-  @convert_s3_http_errors
   def __contains__(self, key):
     try:
-      self.get_object_handle(key).load()
+      self._touch_key(key)
     except KeyError:
       return False
     return True
@@ -73,6 +72,10 @@ class S3Dict(ProtoTypeDict):
     obj = self.get_object_handle(key)
     obj.load()
     obj.delete()
+
+  @convert_s3_http_errors
+  def _touch_key(self, key):
+    self.get_object_handle(key).load()
 
   def put_object(self, key, value, ContentType=None, ContentEncoding=None):
     value = self.serializer.encode(value)
