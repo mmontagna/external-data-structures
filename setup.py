@@ -37,8 +37,12 @@ setup(
     "generic-encoders>=0.3.2",
     "recursive-itertools>=0.1.0"
   ],
+
   extras_require={
-      's3':  ["boto3>=1.7.40"]
+      's3':  ["boto3>=1.7.40"],
+      'dev': [
+        'moto'
+      ]
   },
   entry_points = {
   },
