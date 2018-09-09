@@ -34,7 +34,7 @@ setup(
   python_requires=">=2.7",
   license=open(os.path.join(dir_path, 'LICENSE')).read(),
   install_requires=[
-    "generic-encoders>=0.3.2",
+    "generic-encoders>=0.5.1",
     "recursive-itertools>=0.1.0"
   ],
 
