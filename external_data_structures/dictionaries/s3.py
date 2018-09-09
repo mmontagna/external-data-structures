@@ -6,7 +6,7 @@ import botocore
 from .prototype import ProtoTypeDict
 from recursive_itertools import rfilter
 from generic_encoders import ComposedEncoder, JsonEncoder, GzipEncoder, TextEncoder
-
+from generic_encoders.encoders.no_op_encoder import NoOpEncoder
 
 def convert_s3_http_errors(func):
     @wraps(func)
@@ -21,7 +21,7 @@ def convert_s3_http_errors(func):
     return convert_s3_http_errors_h
 
 
-default_key_serializer = TextEncoder().inverted
+default_key_serializer = NoOpEncoder()
 default_object_serializer = ComposedEncoder(JsonEncoder(), TextEncoder(), GzipEncoder())
 
 
