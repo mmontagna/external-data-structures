@@ -38,9 +38,6 @@ class S3Dict(ProtoTypeDict):
       key_serializer=key_serializer,
       serializer=serializer)
 
-  def make_key(self, key):
-    return "{}{}".format(self.prefix, self.key_serializer.encode(key))
-
   def get_object_handle(self, key):
     return self.bucket.Object(self.make_key(key))
 

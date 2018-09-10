@@ -40,6 +40,7 @@ setup(
 
   extras_require={
       's3':  ["boto3>=1.7.40"],
+      'redis':  ["redis==2.10.6"],
       'dev': [
         'moto'
       ]

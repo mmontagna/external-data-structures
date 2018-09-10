@@ -5,6 +5,9 @@ class ProtoTypeDict(dict):
     self.serializer = serializer
     self.key_serializer = key_serializer
 
+  def make_key(self, key):
+    return "{}{}".format(self.prefix, self.key_serializer.encode(key))
+
   def get(self, key, default=None):
     if key in self:
       return self[key]
