@@ -51,9 +51,7 @@ class RedisDict(ProtoTypeDict):
 
   def iteritems(self):
     iterator = self.redis_client.scan_iter(self.prefix + '*', count=self.scan_count)
-    
     for key in :
-
       key = self._strip_key_prefix_and_decode(key)
       yield key
 
