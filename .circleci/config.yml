@@ -25,6 +25,9 @@ jobs:
           name: run tests
           command: |
             venv2/bin/python -m unittest discover ./test
+          environment:
+            AWS_ACCESS_KEY_ID: dummy
+            AWS_SECRET_ACCESS_KEY: dummy
 
       - store_artifacts:
           path: test-reports
@@ -55,6 +58,9 @@ jobs:
           name: run tests
           command: |
             venv/bin/python -m unittest discover ./test
+          environment:
+            AWS_ACCESS_KEY_ID: dummy
+            AWS_SECRET_ACCESS_KEY: dummy
 
       - store_artifacts:
           path: test-reports

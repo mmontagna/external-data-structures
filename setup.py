@@ -41,7 +41,7 @@ setup(
   extras_require={
       's3':  ["boto3>=1.7.40"],
       'dev': [
-        'moto'
+        'moto>=1.3.7'
       ]
   },
   entry_points = {
